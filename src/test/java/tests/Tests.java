@@ -62,7 +62,7 @@ public class Tests {
                     .when(
                             request()
                                     .withMethod("GET")
-                                    .withPath("/dubbo-easy-mock-demo/io.github.shengchaojie.demo.DemoService/"+a.getKey().getName())
+                                    .withPath("/dubbo-easy-mock-demo/"+ DemoService.class.getName() +"/"+a.getKey().getName())
                     )
                     .respond(
                             response()
