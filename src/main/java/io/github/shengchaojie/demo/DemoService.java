@@ -8,4 +8,10 @@ public interface DemoService {
 
     String returnString();
 
+    Integer returnInteger();
+
+    Long returnLong();
+
+    Short returnShort();
+
 }
