@@ -1,2 +1,2 @@
-## TBD
-TBD
+## 使用
+在DemoService接口加入你需要测试的场景即可，在Tests#autoMethodTest会自动进行测试
