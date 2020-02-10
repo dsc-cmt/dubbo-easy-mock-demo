@@ -33,6 +33,9 @@ import static org.mockserver.model.HttpResponse.response;
 @RunWith(SpringRunner.class)
 public class Tests {
 
+    @Reference
+    DemoService demoService;
+
     private ClientAndServer mockServer;
 
     private Map<Method,Object> mockConfig = new HashMap<>();
@@ -75,9 +78,6 @@ public class Tests {
     public void stopMockServer() {
         mockServer.stop();
     }
-
-    @Reference
-    DemoService demoService;
 
     @Test
     public void autoMethodTest() throws InvocationTargetException, IllegalAccessException {
