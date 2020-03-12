@@ -42,4 +42,15 @@ public class DemoServiceImpl implements DemoService{
         map.put("1","1");
         return map;
     }
+
+    @Override
+    public QueryCurNeedRepayResponse testObject1() {
+        QueryCurNeedRepayResponse queryCurNeedRepayResponse = new QueryCurNeedRepayResponse();
+        queryCurNeedRepayResponse.setCode("10000");
+        queryCurNeedRepayResponse.setInterest(1L);
+        queryCurNeedRepayResponse.setMsg("成功");
+        queryCurNeedRepayResponse.setPrincipal(0L);
+        queryCurNeedRepayResponse.setTotalAmount(0L);
+        return queryCurNeedRepayResponse;
+    }
 }

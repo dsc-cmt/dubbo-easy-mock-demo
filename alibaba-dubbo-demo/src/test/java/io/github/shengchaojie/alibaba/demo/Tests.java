@@ -50,6 +50,7 @@ public class Tests {
         referenceConfig.setInterface(DemoService.class);
         referenceConfig.setRegistry(registryConfig);
         referenceConfig.setApplication(applicationConfig);
+        referenceConfig.setCheck(false);
         demoService = referenceConfig.get();
 
         Method[] methods = DemoService.class.getDeclaredMethods();
@@ -62,7 +63,10 @@ public class Tests {
             }
         }
 
+
+
         mockServer = startClientAndServer(1080);
+
 
         mockConfig.entrySet().stream().forEach(a->{
             mockServer

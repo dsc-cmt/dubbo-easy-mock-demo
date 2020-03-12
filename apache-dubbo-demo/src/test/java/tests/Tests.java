@@ -50,6 +50,7 @@ public class Tests {
         referenceConfig.setInterface(DemoService.class);
         referenceConfig.setRegistry(registryConfig);
         referenceConfig.setApplication(applicationConfig);
+        referenceConfig.setCheck(false);
         demoService = referenceConfig.get();
 
         Method[] methods = DemoService.class.getDeclaredMethods();

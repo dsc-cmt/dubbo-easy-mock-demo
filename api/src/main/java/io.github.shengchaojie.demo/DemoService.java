@@ -21,4 +21,6 @@ public interface DemoService {
 
     Map<String,String> returnMapStringString();
 
+    QueryCurNeedRepayResponse testObject1();
+
 }
