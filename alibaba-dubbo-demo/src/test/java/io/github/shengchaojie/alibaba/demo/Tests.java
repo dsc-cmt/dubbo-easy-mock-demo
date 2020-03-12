@@ -1,20 +1,18 @@
-package tests;
+package io.github.shengchaojie.alibaba.demo;
 
+import com.alibaba.dubbo.common.utils.ReflectUtils;
+import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.ReferenceConfig;
+import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.fastjson.JSON;
-import io.github.shengchaojie.demo.Application;
 import io.github.shengchaojie.demo.DemoService;
 import io.github.shengchaojie.demo.DemoServiceImpl;
 import io.github.shengchaojie.des.PrimitiveWrapper;
-import org.apache.dubbo.common.utils.ReflectUtils;
-import org.apache.dubbo.config.annotation.Reference;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockserver.integration.ClientAndServer;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -29,12 +27,9 @@ import static org.mockserver.model.HttpResponse.response;
  * @author shengchaojie
  * @date 2020-02-09
  **/
-@SpringBootTest(classes = Application.class)
-@RunWith(SpringRunner.class)
 public class Tests {
 
-    @Reference
-    DemoService demoService;
+    private DemoService demoService;
 
     private ClientAndServer mockServer;
 
@@ -43,7 +38,19 @@ public class Tests {
     private DemoServiceImpl demoServiceImpl = new DemoServiceImpl();
 
     @Before
-    public void startMockServer() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void startMockServer() throws InvocationTargetException, IllegalAccessException {
+
+        ApplicationConfig applicationConfig = new ApplicationConfig();
+        applicationConfig.setName("test-consumer");
+
+        RegistryConfig registryConfig = new RegistryConfig();
+        registryConfig.setAddress("zookeeper://127.0.0.1:2181");
+
+        ReferenceConfig<DemoService> referenceConfig = new ReferenceConfig<>();
+        referenceConfig.setInterface(DemoService.class);
+        referenceConfig.setRegistry(registryConfig);
+        referenceConfig.setApplication(applicationConfig);
+        demoService = referenceConfig.get();
 
         Method[] methods = DemoService.class.getDeclaredMethods();
 
@@ -70,7 +77,6 @@ public class Tests {
                                     .withBody(JSON.toJSONString(a.getValue()))
                     );
         });
-
 
     }
 
